@@ -23,7 +23,7 @@
     </div>
 
     <div style="margin: 20px 0;">
-        <h2>Job Description</h2>
+        <h2>Description</h2>
         <p style="white-space: pre-wrap;">{{ $job->description }}</p>
     </div>
 
