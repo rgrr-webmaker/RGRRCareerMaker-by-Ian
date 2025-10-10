@@ -44,7 +44,7 @@
                 <p><strong>Location:</strong> {{ $job->location }}</p>
                 <p><strong>Type:</strong> {{ ucfirst($job->type) }}</p>
                 @if($job->salary_min && $job->salary_max)
-                    <p><strong>Salary:</strong> ${{ number_format($job->salary_min, 2) }} - ${{ number_format($job->salary_max, 2) }}</p>
+                    <p><strong>Salary:</strong> ₱{{ number_format($job->salary_min, 2) }} - ₱{{ number_format($job->salary_max, 2) }}</p>
                 @endif
                 <p>{{ Str::limit($job->description, 200) }}</p>
                 <p><small>Posted {{ $job->created_at->diffForHumans() }}</small></p>
