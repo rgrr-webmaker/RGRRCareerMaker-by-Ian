@@ -6,9 +6,12 @@ use App\Models\Job;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 
 class ApplicationController extends Controller
 {
+     use AuthorizesRequests;
     public function store(Request $request, Job $job)
     {
         $student = Auth::user()->student;
