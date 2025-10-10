@@ -14,7 +14,7 @@
             <p><strong>Experience Level:</strong> {{ $job->experience_level }}</p>
         @endif
         @if($job->salary_min && $job->salary_max)
-            <p><strong>Salary Range:</strong> ${{ number_format($job->salary_min, 2) }} - ${{ number_format($job->salary_max, 2) }}</p>
+            <p><strong>Salary Range:</strong> ₱{{ number_format($job->salary_min, 2) }} - ₱{{ number_format($job->salary_max, 2) }}</p>
         @endif
         @if($job->deadline)
             <p><strong>Application Deadline:</strong> {{ $job->deadline->format('M d, Y') }}</p>
