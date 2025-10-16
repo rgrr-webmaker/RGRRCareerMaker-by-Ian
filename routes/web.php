@@ -1,5 +1,7 @@
-<?php
 
+
+<?php
+// routes/web.php
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployerController;
