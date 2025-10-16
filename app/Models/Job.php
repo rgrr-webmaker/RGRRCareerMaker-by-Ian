@@ -35,6 +35,9 @@ class Job extends Model
         ];
     }
 
+    /**
+     * RELATIONSHIPS
+     */
     public function employer()
     {
         return $this->belongsTo(Employer::class);
@@ -52,13 +55,17 @@ class Job extends Model
             ->withTimestamps();
     }
 
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
-    }
-
+    /**
+     * SCOPES
+     */
     public function scopeRecent($query)
     {
         return $query->orderBy('created_at', 'desc');
+    }
+
+    public function scopeActive($query)
+    {
+        // ✅ Fix: this makes Job::active() work
+        return $query->where('is_active', true);
     }
 }

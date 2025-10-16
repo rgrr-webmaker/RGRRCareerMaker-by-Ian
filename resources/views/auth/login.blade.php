@@ -4,57 +4,43 @@
 
 @section('content')
 <div class="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-[#D9E9CF]">
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
         <!-- Header -->
         <div class="text-center mb-8">
-            <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-[#96A78D] to-[#B6CEB4] flex items-center justify-center shadow-lg">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-emerald-600 to-green-600 flex items-center justify-center shadow-sm">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                 </svg>
             </div>
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
-            <p class="text-gray-600">Sign in to your account</p>
+            <h1 class="text-2xl font-bold text-slate-900 mb-2">Welcome Back</h1>
+            <p class="text-slate-600">Sign in to your account</p>
         </div>
 
         <!-- Login Form -->
-        <form method="POST" action="{{ route('login') }}" class="space-y-6">
+        <form method="POST" action="{{ route('login') }}" class="space-y-5">
             @csrf
 
             <!-- Email Field -->
             <div>
-                <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                        </svg>
-                    </div>
-                    <input type="email"
-                           id="email"
-                           name="email"
-                           value="{{ old('email') }}"
-                           required
-                           class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#96A78D] focus:ring-2 focus:ring-[#B6CEB4]/20 transition-all duration-300 outline-none"
-                           placeholder="you@example.com">
-                </div>
+                <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       value="{{ old('email') }}"
+                       required
+                       class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-150"
+                       placeholder="you@example.com">
             </div>
 
             <!-- Password Field -->
             <div>
-                <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                        </svg>
-                    </div>
-                    <input type="password"
-                           id="password"
-                           name="password"
-                           required
-                           class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#96A78D] focus:ring-2 focus:ring-[#B6CEB4]/20 transition-all duration-300 outline-none"
-                           placeholder="••••••••">
-                </div>
+                <label for="password" class="block text-sm font-medium text-slate-700 mb-2">Password</label>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       required
+                       class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-150"
+                       placeholder="••••••••">
             </div>
 
             <!-- Remember Me -->
@@ -63,22 +49,22 @@
                        id="remember"
                        name="remember"
                        value="1"
-                       class="w-4 h-4 rounded border-gray-300 text-[#96A78D] focus:ring-[#B6CEB4] focus:ring-2 transition-all duration-300">
-                <label for="remember" class="ml-2 text-sm text-gray-700">Remember me for 30 days</label>
+                       class="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                <label for="remember" class="ml-2 text-sm text-slate-700">Remember me for 30 days</label>
             </div>
 
             <!-- Submit Button -->
             <button type="submit"
-                    class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#96A78D] to-[#B6CEB4] text-white font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300">
+                    class="w-full py-2.5 px-4 rounded-lg bg-emerald-600 text-white font-medium shadow-sm hover:bg-emerald-700 transition-colors duration-150">
                 Sign In
             </button>
         </form>
 
         <!-- Register Link -->
         <div class="mt-6 text-center">
-            <p class="text-sm text-gray-600">
+            <p class="text-sm text-slate-600">
                 Don't have an account?
-                <a href="{{ route('register') }}" class="font-semibold text-[#96A78D] hover:text-[#B6CEB4] transition-colors duration-300">
+                <a href="{{ route('register') }}" class="font-medium text-emerald-600 hover:text-emerald-700 transition-colors duration-150">
                     Register here
                 </a>
             </p>
@@ -86,23 +72,23 @@
     </div>
 
     <!-- Test Accounts -->
-    <div class="mt-6 bg-gradient-to-br from-[#D9E9CF]/40 to-[#B6CEB4]/20 backdrop-blur-sm rounded-2xl p-6 border border-[#D9E9CF]">
-        <h3 class="font-bold text-gray-800 mb-3 flex items-center">
-            <svg class="w-5 h-5 mr-2 text-[#96A78D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="mt-6 bg-blue-50 rounded-xl p-6 border border-blue-200">
+        <h3 class="font-semibold text-slate-900 mb-3 flex items-center text-sm">
+            <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             Test Accounts
         </h3>
-        <div class="space-y-2 text-sm">
-            <div class="bg-white/60 rounded-lg p-3">
-                <p class="font-semibold text-gray-700 mb-1">Student Account</p>
-                <p class="text-gray-600"><span class="font-medium">Email:</span> student@test.com</p>
-                <p class="text-gray-600"><span class="font-medium">Password:</span> password</p>
+        <div class="space-y-3 text-sm">
+            <div class="bg-white rounded-lg p-3 border border-blue-100">
+                <p class="font-semibold text-slate-900 mb-1">Student Account</p>
+                <p class="text-slate-600"><span class="font-medium">Email:</span> student@test.com</p>
+                <p class="text-slate-600"><span class="font-medium">Password:</span> password</p>
             </div>
-            <div class="bg-white/60 rounded-lg p-3">
-                <p class="font-semibold text-gray-700 mb-1">Employer Account</p>
-                <p class="text-gray-600"><span class="font-medium">Email:</span> employer@test.com</p>
-                <p class="text-gray-600"><span class="font-medium">Password:</span> password</p>
+            <div class="bg-white rounded-lg p-3 border border-blue-100">
+                <p class="font-semibold text-slate-900 mb-1">Employer Account</p>
+                <p class="text-slate-600"><span class="font-medium">Email:</span> employer@test.com</p>
+                <p class="text-slate-600"><span class="font-medium">Password:</span> password</p>
             </div>
         </div>
     </div>
