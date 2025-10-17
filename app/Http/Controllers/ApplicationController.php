@@ -1,5 +1,5 @@
 <?php
-
+// app/Http/Controllers/ApplicationController.php
 namespace App\Http\Controllers;
 
 use App\Models\Job;
@@ -7,11 +7,13 @@ use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 
 
 class ApplicationController extends Controller
 {
-     use AuthorizesRequests;
+    use AuthorizesRequests;
+
     public function store(Request $request, Job $job)
     {
         $student = Auth::user()->student;
@@ -26,17 +28,46 @@ class ApplicationController extends Controller
 
         $validated = $request->validate([
             'cover_letter' => ['nullable', 'string', 'max:2000'],
+            'resume' => ['required', 'file', 'mimes:pdf,doc,docx', 'max:5120'], // 5MB max
         ]);
+
+        // Handle resume upload
+        $resumePath = null;
+        if ($request->hasFile('resume')) {
+            $resumePath = $request->file('resume')->store('resumes', 'public');
+        }
 
         Application::create([
             'job_id' => $job->id,
             'student_id' => $student->id,
             'cover_letter' => $validated['cover_letter'] ?? null,
+            'resume_path' => $resumePath,
             'status' => 'pending',
         ]);
 
         return redirect()->route('student.applications.index')
             ->with('success', 'Application submitted successfully');
+    }
+
+    public function downloadResume(Application $application)
+    {
+        // Check authorization
+        if (Auth::user()->isStudent()) {
+            $this->authorize('view', $application);
+        } else {
+            if ($application->job->employer_id !== Auth::user()->employer->id) {
+                abort(403);
+            }
+        }
+
+        if (!$application->resume_path || !Storage::disk('public')->exists($application->resume_path)) {
+            abort(404, 'Resume not found');
+        }
+
+        $filePath = storage_path('app/public/' . $application->resume_path);
+        $fileName = 'resume_' . $application->student->user->name . '_' . $application->id . '.' . pathinfo($application->resume_path, PATHINFO_EXTENSION);
+
+        return response()->download($filePath, $fileName);
     }
 
     public function show(Application $application)
@@ -78,6 +109,12 @@ class ApplicationController extends Controller
     public function destroy(Application $application)
     {
         $this->authorize('delete', $application);
+
+        // Delete the resume file if it exists
+        if ($application->resume_path && Storage::disk('public')->exists($application->resume_path)) {
+            Storage::disk('public')->delete($application->resume_path);
+        }
+
         $application->delete();
 
         return redirect()->route('student.applications.index')

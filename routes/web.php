@@ -1,12 +1,11 @@
-
-
 <?php
-// routes/web.php
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ErrorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +24,13 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    // Unauthorized access page
+    Route::get('/unauthorized', [ErrorController::class, 'unauthorized'])->name('unauthorized');
+
+    // Shared routes (accessible by both students and employers)
+    Route::get('/applications/{application}', [ApplicationController::class, 'show'])->name('applications.show');
+    Route::get('/applications/{application}/resume', [ApplicationController::class, 'downloadResume'])->name('applications.resume');
+
     // Student routes
     Route::middleware('role:student')->prefix('student')->name('student.')->group(function () {
         Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
@@ -42,12 +48,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [EmployerController::class, 'dashboard'])->name('dashboard');
         Route::get('/profile', [EmployerController::class, 'profile'])->name('profile');
         Route::put('/profile', [EmployerController::class, 'updateProfile'])->name('profile.update');
+        Route::get('/applicants', [EmployerController::class, 'applicants'])->name('applicants.index');
 
         Route::resource('jobs', JobController::class);
         Route::post('/jobs/{job}/toggle-status', [JobController::class, 'toggleStatus'])->name('jobs.toggle-status');
         Route::put('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.update-status');
     });
-
-    // Shared application view
-    Route::get('/applications/{application}', [ApplicationController::class, 'show'])->name('applications.show');
 });

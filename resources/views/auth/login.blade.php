@@ -70,27 +70,5 @@
             </p>
         </div>
     </div>
-
-    <!-- Test Accounts -->
-    <div class="mt-6 bg-blue-50 rounded-xl p-6 border border-blue-200">
-        <h3 class="font-semibold text-slate-900 mb-3 flex items-center text-sm">
-            <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Test Accounts
-        </h3>
-        <div class="space-y-3 text-sm">
-            <div class="bg-white rounded-lg p-3 border border-blue-100">
-                <p class="font-semibold text-slate-900 mb-1">Student Account</p>
-                <p class="text-slate-600"><span class="font-medium">Email:</span> student@test.com</p>
-                <p class="text-slate-600"><span class="font-medium">Password:</span> password</p>
-            </div>
-            <div class="bg-white rounded-lg p-3 border border-blue-100">
-                <p class="font-semibold text-slate-900 mb-1">Employer Account</p>
-                <p class="text-slate-600"><span class="font-medium">Email:</span> employer@test.com</p>
-                <p class="text-slate-600"><span class="font-medium">Password:</span> password</p>
-            </div>
-        </div>
-    </div>
 </div>
 @endsection
