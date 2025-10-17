@@ -153,18 +153,53 @@
                     View My Applications
                 </a>
             @else
-                <form method="POST" action="{{ route('student.jobs.apply', $job) }}" class="space-y-4">
+                <form method="POST" action="{{ route('student.jobs.apply', $job) }}" enctype="multipart/form-data" class="space-y-4">
                     @csrf
+
+                    <!-- Cover Letter -->
                     <div>
                         <label for="cover_letter" class="block text-sm font-medium text-slate-700 mb-2">Cover Letter (Optional)</label>
                         <textarea id="cover_letter" name="cover_letter" rows="6"
-                                  placeholder="Tell the employer why you're a great fit for this position..."
-                                  class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-150"></textarea>
+                                placeholder="Tell the employer why you're a great fit for this position..."
+                                class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-150">{{ old('cover_letter') }}</textarea>
+                        @error('cover_letter')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
+
+                    <!-- Resume Upload -->
+                    <div>
+                        <label for="resume" class="block text-sm font-medium text-slate-700 mb-2">
+                            Resume <span class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-1 flex items-center">
+                            <label for="resume" class="relative cursor-pointer bg-white rounded-lg border border-slate-300 px-4 py-3 hover:border-emerald-500 transition-colors duration-150 w-full">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-slate-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    <span class="text-sm text-slate-600" id="file-name">Choose PDF or Word file (Max: 5MB)</span>
+                                </div>
+                                <input id="resume" name="resume" type="file" accept=".pdf,.doc,.docx" class="sr-only" required onchange="updateFileName(this)">
+                            </label>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500">Accepted formats: PDF, DOC, DOCX (Maximum size: 5MB)</p>
+                        @error('resume')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <button type="submit" class="w-full md:w-auto px-8 py-3 rounded-lg bg-emerald-600 text-white font-semibold shadow-sm hover:bg-emerald-700 transition-colors duration-150">
                         Apply Now
                     </button>
                 </form>
+
+                <script>
+                    function updateFileName(input) {
+                        const fileName = input.files[0]?.name || 'Choose PDF or Word file (Max: 5MB)';
+                        document.getElementById('file-name').textContent = fileName;
+                    }
+                </script>
             @endif
         </div>
     </div>
